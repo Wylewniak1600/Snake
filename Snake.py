@@ -29,10 +29,8 @@ class Snake:
                 collision = True
         return collision
 
-
     def make_longer(self):
         self.add_segment(self.segments[-1].position())
-
 
     def move(self):
         for segment_num in range(len(self.segments) - 1, 0, -1):
@@ -40,6 +38,15 @@ class Snake:
             new_y = self.segments[segment_num - 1].ycor()
             self.segments[segment_num].goto(new_x, new_y)
         self.head.forward(20)
+
+    def reset(self):
+        for segment in self.segments:
+            segment.goto(4000, 4000)
+
+        self.segments.clear()
+        self.create_snake()
+        self.head = self.segments[0]
+
 
     def up(self):
         if self.head.heading() != 270:

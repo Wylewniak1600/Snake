@@ -4,6 +4,7 @@ from turtle import Turtle, Screen
 from Food import Food
 from Scoreboard import Scoreboard
 
+
 class SnakeGame:
     def __init__(self):
         self.screen = Screen()
@@ -23,9 +24,8 @@ class SnakeGame:
     def eat_food(self):
         if self.snake.head.distance(self.food) < 20:
             self.food.refresh()
-            self.scoreboard.increase_score()
+            self.scoreboard.update_scoreboard()
             self.snake.make_longer()
-
 
     def game_loop(self):
         while self.game_is_on:
@@ -44,10 +44,11 @@ class SnakeGame:
 
             if game.snake_x_position == game.x_wall or game.snake_y_position == game.y_wall or game.snake_x_position == -game.x_wall or game.snake_y_position == -game.y_wall:
                 self.scoreboard.game_over()
-                game.game_is_on = False
+                self.snake.reset()
+
             if game.snake.tail_colision():
                 self.scoreboard.game_over()
-                game.game_is_on = False
+                self.snake.reset()
 
         self.screen.exitonclick()
 
